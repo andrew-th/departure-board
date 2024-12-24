@@ -59,3 +59,7 @@ def get_departures(request):
 
     departures = process_departures(gtfs_data)
     return JsonResponse({"departures": departures})
+
+# render the frontend
+def index(request):
+    return render(request, "departures/index.html")
