@@ -7,6 +7,10 @@ from datetime import datetime, timedelta
 TRANSIT_API_URL = "https://transit.api/gtfs-rt"
 API_KEY = "your_api_key"
 
+# render the frontend
+def index(request):
+    return render(request, "departures/index.html")
+
 # fetch GTFS data
 def fetch_gtfs_data(stop_id):
     try:
@@ -60,6 +64,3 @@ def get_departures(request):
     departures = process_departures(gtfs_data)
     return JsonResponse({"departures": departures})
 
-# render the frontend
-def index(request):
-    return render(request, "departures/index.html")
