@@ -6,9 +6,35 @@
     <title>Transit Departures</title>
 </head>
 <body>
+    <div id="stop-search">
+        <input type="text" placeholder="Search for a stop" />
+        <select>
+          <!-- Populate with stop data -->
+          <option>Stop A</option>
+          <option>Stop B</option>
+        </select>
+    </div>  
     <h1>Departures for Selected Stop</h1>
     <div id="departures-list">
-        <!-- Departures will be displayed here -->
+        <table>
+            <thead>
+              <tr>
+                <th>Route</th>
+                <th>Destination</th>
+                <th>Scheduled Time</th>
+                <th>Countdown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populate with API data -->
+              <tr>
+                <td>Bus 101</td>
+                <td>Downtown</td>
+                <td>12:45 PM</td>
+                <td>5 mins</td>
+              </tr>
+            </tbody>
+          </table>
     </div>
 </body>
 </html>
