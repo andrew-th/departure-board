@@ -3,38 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transit Departures</title>
+    <title>Real-Time Departures</title>
 </head>
 <body>
-    <div id="stop-search">
-        <input type="text" placeholder="Search for a stop" />
-        <select>
-          <!-- Populate with stop data -->
-          <option>Stop A</option>
-          <option>Stop B</option>
-        </select>
-    </div>  
-    <h1>Departures for Selected Stop</h1>
-    <div id="departures-list">
-        <table>
-            <thead>
-              <tr>
-                <th>Route</th>
-                <th>Destination</th>
-                <th>Scheduled Time</th>
-                <th>Countdown</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Populate with API data -->
-              <tr>
-                <td>Bus 101</td>
-                <td>Downtown</td>
-                <td>12:45 PM</td>
-                <td>5 mins</td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
+    <h1>Real-Time Departures</h1>
+
+    <!-- Dropdown or Input for Stop ID -->
+    <form id="stopForm">
+        <label for="stopId">Enter Stop ID:</label>
+        <input type="text" id="stopId" name="stopId" required>
+        <button type="submit">Get Departures</button>
+    </form>
+
+    <!-- Results Section -->
+    <div id="results"></div>
+
+    <script>
+        // Handle Form Submission
+        const stopForm = document.getElementById('stopForm');
+        const resultsDiv = document.getElementById('results');
+
+        stopForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent form from refreshing the page
+
+            const stopId = document.getElementById('stopId').value;
+
+            try {
+                // Make API request to the backend
+                const response = await fetch(`/api/departures?stopId=${stopId}`);
+                const data = await response.json();
+
+                // Display Results
+                if (response.ok) {
+                    resultsDiv.innerHTML = `<pre>${JSON.stringify(data.departures, null, 2)}</pre>`;
+                } else {
+                    resultsDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `<p style="color: red;">Failed to fetch departures: ${error.message}</p>`;
+            }
+        });
+    </script>
 </body>
 </html>

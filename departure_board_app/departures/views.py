@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import requests
 from datetime import datetime, timedelta
+import os
 
 # TODO secure api data
-TRANSIT_API_URL = "https://transit.api/gtfs-rt"
-API_KEY = "your_api_key"
+TRANSIT_API_URL = "https://api.wmata.com/gtfs/bus-gtfsrt-tripupdates.pb"
+API_KEY = os.getenv("API_KEY")
 
 # render the frontend
 def index(request):
